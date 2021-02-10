@@ -90,7 +90,7 @@ Se cumple el invariante con la sincronización.
 	}
 	```
 
-7. Tras implementar su estrategia, ponga a correr su programa, y ponga atención a si éste se llega a detener. Si es así, use los programas **jps** y **jstack* para identificar por qué el programa se detuvo.
+7. Tras implementar su estrategia, ponga a correr su programa, y ponga atención a si éste se llega a detener. Si es así, use los programas **jps** y **jstack** para identificar por qué el programa se detuvo.
 
 **Detectar threads deadlocks con jstack**
 
