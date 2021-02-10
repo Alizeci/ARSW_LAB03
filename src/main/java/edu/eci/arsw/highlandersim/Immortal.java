@@ -14,6 +14,8 @@ public class Immortal extends Thread {
     private final List<Immortal> immortalsPopulation;
 
     private final String name;
+    
+    boolean enPausa;
 
     private final Random r = new Random(System.currentTimeMillis());
 
@@ -30,6 +32,15 @@ public class Immortal extends Thread {
     public void run() {
 
         while (true) {
+        	synchronized(this){
+				while (isEnPausa()){
+					try {
+						wait();                                
+					} catch (InterruptedException ex) {
+						ex.printStackTrace();
+                    }
+                }
+        	}
             Immortal im;
 
             int myIndex = immortalsPopulation.indexOf(this);
@@ -50,30 +61,47 @@ public class Immortal extends Thread {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-
         }
-
     }
 
     public void fight(Immortal i2) {
-
+    	
         if (i2.getHealth() > 0) {
-            i2.changeHealth(i2.getHealth() - defaultDamageValue);
-            this.health += defaultDamageValue;
+        	synchronized (i2) {
+        		i2.changeHealth(i2.getHealth() - defaultDamageValue);
+        	}
+        	
+            synchronized (this) {
+            	this.health += defaultDamageValue;
+        	}
+        	
             updateCallback.processReport("Fight: " + this + " vs " + i2+"\n");
+            
         } else {
-            updateCallback.processReport(this + " says:" + i2 + " is already dead!\n");
+            updateCallback.processReport(this + " says:" + i2 + " is already dead!\n");            
         }
-
     }
 
-    public void changeHealth(int v) {
+	public void changeHealth(int v) {
         health = v;
     }
 
     public int getHealth() {
         return health;
     }
+    
+	public boolean isEnPausa() {
+		return enPausa;
+	}
+	
+	public synchronized void restart() {
+		this.setEnPausa(false);
+		notify();
+	}
+	
+	public void setEnPausa(boolean enPausa) {
+		this.enPausa = enPausa;
+	}
 
     @Override
     public String toString() {
