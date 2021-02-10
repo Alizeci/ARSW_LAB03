@@ -59,16 +59,16 @@ Sincronización y Dead-Locks.
 
 1. Revise el programa “highlander-simulator”, dispuesto en el paquete edu.eci.arsw.highlandersim. Este es un juego en el que:
 
-	* Se tienen N I
+	* Se tienen N jugadores inmortales.
 	* Cada jugador conoce a los N-1 jugador restantes.
 	* Cada jugador, permanentemente, ataca a algún otro inmortal. El que primero ataca le resta M puntos de vida a su contrincante, y aumenta en esta misma cantidad sus propios puntos de vida.
 	* El juego podría nunca tener un único ganador. Lo más probable es que al final sólo queden dos, peleando indefinidamente quitando y sumando puntos de vida.
 
 2. Revise el código e identifique cómo se implemento la funcionalidad antes indicada. Dada la intención del juego, un invariante debería ser que la sumatoria de los puntos de vida de todos los jugadores siempre sea el mismo(claro está, en un instante de tiempo en el que no esté en proceso una operación de incremento/reducción de tiempo). Para este caso, para N jugadores, cual debería ser este valor?.
 
->> Invariante: La sumatoria de los puntos de vida de todos los jugadores siempre es la misma.
+> Invariante: La sumatoria de los puntos de vida de todos los jugadores siempre es la misma.
 
-Dado el invariante, podemos inferir que el Valor: N (número de jugadores) * DEFAULT_INMORTAL_HEALTH (puntos de vida)
+Dado el invariante, podemos inferir que el Valor debería ser: **N (número de jugadores)** * **DEFAULT_INMORTAL_HEALTH (puntos de vida)**
 
 3. Ejecute la aplicación y verifique cómo funcionan las opción ‘pause and check’. Se cumple el invariante?.
 
@@ -95,7 +95,7 @@ Se cumple el invariante con la sincronización.
 **Detectar threads deadlocks con jstack**
 Se puede llegar a tener "deadlocks" que impactan en el desempeño de la aplicación, pueden consumir toda la memoria y hasta tirar la JVM.
 
->> Para localizar estas situaciones, primero se tiene que identificar el PID de la JVM:
+> Para localizar estas situaciones, primero se tiene que identificar el PID de la JVM:
 
 ![](./img/soporteParte3Punto7a.png)
 
