@@ -14,6 +14,7 @@
 
 ### Descripción
 Este laboratorio tiene como fin que el estudiante conozca y aplique conceptos propios de la programación concurrente, además de estrategias que eviten condiciones de carrera.
+
 ### Dependencias:
 
 * [Ejercicio Introducción al paralelismo - Hilos - BlackList Search](https://github.com/ARSW-ECI-beta/PARALLELISM-JAVA_THREADS-INTRODUCTION_BLACKLISTSEARCH)
@@ -50,7 +51,7 @@ Teniendo en cuenta los conceptos vistos de condición de carrera y sincronizaci�
 
 ![](./img/soporteParte2.png)
 
-#### Parte III. – Avance para la siguiente clase
+### 📌 Parte III. – Avance para la siguiente clase
 
 Sincronización y Dead-Locks.
 
@@ -65,11 +66,19 @@ Sincronización y Dead-Locks.
 
 2. Revise el código e identifique cómo se implemento la funcionalidad antes indicada. Dada la intención del juego, un invariante debería ser que la sumatoria de los puntos de vida de todos los jugadores siempre sea el mismo(claro está, en un instante de tiempo en el que no esté en proceso una operación de incremento/reducción de tiempo). Para este caso, para N jugadores, cual debería ser este valor?.
 
+>> Invariante: La sumatoria de los puntos de vida de todos los jugadores siempre es la misma.
+
+Dado el invariante, podemos inferir que el Valor: N (número de jugadores) * DEFAULT_INMORTAL_HEALTH (puntos de vida)
+
 3. Ejecute la aplicación y verifique cómo funcionan las opción ‘pause and check’. Se cumple el invariante?.
+
+No se cumple el invariante por que la sumatoria de los puntos de vida de todos los jugadores no siempre es la misma.
 
 4. Una primera hipótesis para que se presente la condición de carrera para dicha función (pause and check), es que el programa consulta la lista cuyos valores va a imprimir, a la vez que otros hilos modifican sus valores. Para corregir esto, haga lo que sea necesario para que efectivamente, antes de imprimir los resultados actuales, se pausen todos los demás hilos. Adicionalmente, implemente la opción ‘resume’.
 
 5. Verifique nuevamente el funcionamiento (haga clic muchas veces en el botón). Se cumple o no el invariante?.
+
+Se cumple el invariante con la sincronización.
 
 6. Identifique posibles regiones críticas en lo que respecta a la pelea de los inmortales. Implemente una estrategia de bloqueo que evite las condiciones de carrera. Recuerde que si usted requiere usar dos o más ‘locks’ simultáneamente, puede usar bloques sincronizados anidados:
 
@@ -82,6 +91,20 @@ Sincronización y Dead-Locks.
 	```
 
 7. Tras implementar su estrategia, ponga a correr su programa, y ponga atención a si éste se llega a detener. Si es así, use los programas jps y jstack para identificar por qué el programa se detuvo.
+
+**Detectar threads deadlocks con jstack**
+Se puede llegar a tener "deadlocks" que impactan en el desempeño de la aplicación, pueden consumir toda la memoria y hasta tirar la JVM.
+
+>> Para localizar estas situaciones, primero se tiene que identificar el PID de la JVM:
+
+![](./img/soporteParte3Punto7a.png)
+
+**jstack** nos facilita saber:
+- Cuántos deadlocks existen en el proceso JVM
+- Cuáles son los dos threads esperando para cada deadlock.
+- Qué está haciendo cada thread (inclusive)
+
+![](./img/soporteParte3Punto7b.png)
 
 8. Plantee una estrategia para corregir el problema antes identificado (puede revisar de nuevo las páginas 206 y 207 de _Java Concurrency in Practice_).
 
