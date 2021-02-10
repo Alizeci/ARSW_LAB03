@@ -1,0 +1,5 @@
+CONCLUSIONES:
+
+Se seguía teniendo en cuenta un oponente que estaba muerto, lo que implica que mientras se estaba modificando la lista  que contenía los inmortales, se estaban buscando oponentes en la misma.
+
++ Eliminamos los inmortales muertos antes de que se pelearan (se les asignara el nuevo puntaje de vida)
